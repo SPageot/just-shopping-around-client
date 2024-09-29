@@ -5,7 +5,6 @@ import { SharedValue } from "react-native-reanimated";
 export interface ScreenButtonProps {
   buttonText?: string;
   onPress?: () => void;
-  isDisplayingItem?: boolean;
 }
 
 export interface ScreenContainerProps {
@@ -73,4 +72,9 @@ export interface ScreenHeaderTextProps {
   textCenter?: boolean;
   small?: boolean;
   spaceTop?: boolean;
+}
+
+export interface SelectedItemProps {
+  selectedItemText?: string;
+  onPress?: () => void;
 }

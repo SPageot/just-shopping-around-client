@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import CartProvider from "@/hooks/UseCart";
+import CartProvider from "@/context/CartContext";
 
 export default function TabsLayout() {
   return (
@@ -12,20 +12,20 @@ export default function TabsLayout() {
         }}
       >
         <Tabs.Screen
-          name='Home'
+          name="Home"
           options={{
             tabBarLabel: "Home",
             tabBarIcon: ({ color }) => (
-              <FontAwesome name='home' size={24} color={color} />
+              <FontAwesome name="home" size={24} color={color} />
             ),
           }}
         />
         <Tabs.Screen
-          name='ShoppingItems'
+          name="ShoppingItems"
           options={{
             tabBarLabel: "Shopping Items",
             tabBarIcon: ({ color }) => (
-              <FontAwesome5 name='store' size={24} color={color} />
+              <FontAwesome5 name="store" size={24} color={color} />
             ),
           }}
         />

@@ -16,9 +16,10 @@ import {
   ShoppingItemProps,
 } from "@/types/types";
 import ScreenHeader from "../ScreenHeader/ScreenHeader";
-import { CartContext } from "@/hooks/UseCart";
+import { CartContext } from "@/context/CartContext";
 import ScreenButton from "../ScreenButton/ScreenButton";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import SelectedItem from "../SelectedItem/SelectedItem";
 
 const SelectionContainer = styled(Pressable)<SelectionContainerProps>`
   width: 100%;
@@ -101,27 +102,21 @@ const ShoppingItemsList: React.FC<ShoppingItemProps> = ({
     }
   };
 
-  const onRemovePress = (item: any) => {
-    const itemInCart = context.shoppingCart.filter(
-      (cartItem: DataProps) => cartItem.id === item.id
+  const onRemovePress = (item: DataProps) => {
+    context.setShoppingCart((prevItem) =>
+      prevItem.map((updateItem) =>
+        updateItem.id === item.id
+          ? { ...updateItem, quantity: updateItem.quantity - 1 }
+          : updateItem
+      )
     );
-    if (!_.isEmpty(itemInCart)) {
-      context.setShoppingCart((prevItem) =>
-        prevItem.map((updateItem) =>
-          updateItem.id === item.id
-            ? { ...updateItem, quantity: updateItem.quantity - 1 }
-            : updateItem
-        )
-      );
-    }
   };
   //#TODO: remove any
   const renderItem = ({ item }: { item: any }) => {
     return shoppingList ? (
       <ItemDetailsContainer space>
-        <ScreenButton
-          isDisplayingItem
-          buttonText={`${findItemById(item.id)} ${item.item} `}
+        <SelectedItem
+          selectedItemText={`${findItemById(item.id)} ${item.item} `}
           onPress={() =>
             context.setShoppingCart(
               context.shoppingCart.filter(
@@ -137,17 +132,17 @@ const ShoppingItemsList: React.FC<ShoppingItemProps> = ({
           selected={findItemById(item.id) > 0}
           onPress={() => onItemPress(item)}
         >
-          <ItemImageContainer source={item.image} resizeMode='cover'>
+          <ItemImageContainer source={item.image} resizeMode="cover">
             <ScreenHeader backgroundColor>{item.item}</ScreenHeader>
           </ItemImageContainer>
         </ItemDetailsContainer>
         <Pressable onPress={() => onRemovePress(item)}>
-          <Ionicons name='bag-remove-sharp' size={24} color='red' />
+          <Ionicons name="bag-remove-sharp" size={24} color="red" />
         </Pressable>
         <ScreenHeader>{findItemById(item.id)}</ScreenHeader>
         {findItemById(item.id) > 0 && (
           <Pressable onPress={() => onItemPress(item)}>
-            <FontAwesome6 name='add' size={24} color='blue' />
+            <FontAwesome6 name="add" size={24} color="blue" />
           </Pressable>
         )}
       </SelectionContainer>

@@ -1,7 +1,7 @@
 import ScreenContainer from "@/components/ScreenContainer/ScreenContainer";
 import ScreenHeader from "@/components/ScreenHeader/ScreenHeader";
 import ShoppingItemsList from "@/components/ShoppingItemsList/ShoppingItemsList";
-import { CartContext } from "@/hooks/UseCart";
+import { CartContext } from "@/context/CartContext";
 import { useContext } from "react";
 
 export default function Home() {
