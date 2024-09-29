@@ -3,10 +3,9 @@ import {
   FlatList,
   Pressable,
   ImageBackground,
-  Text,
   TouchableOpacity,
 } from "react-native";
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import styled, { css } from "styled-components";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
@@ -17,7 +16,6 @@ import {
 } from "@/types/types";
 import ScreenHeader from "../ScreenHeader/ScreenHeader";
 import { CartContext } from "@/context/CartContext";
-import ScreenButton from "../ScreenButton/ScreenButton";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import SelectedItem from "../SelectedItem/SelectedItem";
 
@@ -112,7 +110,7 @@ const ShoppingItemsList: React.FC<ShoppingItemProps> = ({
     );
   };
   //#TODO: remove any
-  const renderItem = ({ item }: { item: any }) => {
+  const renderItem = useCallback(({ item }: { item: any }) => {
     return shoppingList ? (
       <ItemDetailsContainer space>
         <SelectedItem
@@ -147,7 +145,7 @@ const ShoppingItemsList: React.FC<ShoppingItemProps> = ({
         )}
       </SelectionContainer>
     );
-  };
+  }, []);
 
   return (
     <ItemsContainer
