@@ -43,6 +43,8 @@ export interface ShoppingCartProps {
 export interface ShoppingCartContextProps {
   shoppingCart: DataProps[] | [];
   setShoppingCart: Dispatch<SetStateAction<DataProps[]>>;
+  onRemovePress: (item: DataProps) => void;
+  onItemPress: (item: DataProps) => void;
 }
 
 export interface DataProps {

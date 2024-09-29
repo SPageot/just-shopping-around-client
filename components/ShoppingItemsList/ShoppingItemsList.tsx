@@ -80,77 +80,50 @@ const ShoppingItemsList: React.FC<ShoppingItemProps> = ({
   };
 
   //#TODO: remove any
-  const onItemPress = (item: any) => {
-    const itemInCart = context.shoppingCart.filter(
-      (cartItem: DataProps) => cartItem.id === item.id
-    );
-    if (itemInCart.length == 0) {
-      context.setShoppingCart([
-        ...context.shoppingCart,
-        { ...item, quantity: 1 },
-      ]);
-    } else {
-      context.setShoppingCart((prevItem) =>
-        prevItem.map((updateItem) =>
-          updateItem.id === item.id
-            ? { ...updateItem, quantity: updateItem.quantity + 1 }
-            : updateItem
-        )
-      );
-    }
-  };
-
-  const onRemovePress = (item: DataProps) => {
-    context.setShoppingCart((prevItem) =>
-      prevItem.map((updateItem) =>
-        updateItem.id === item.id
-          ? { ...updateItem, quantity: updateItem.quantity - 1 }
-          : updateItem
-      )
-    );
-  };
-  //#TODO: remove any
-  const renderItem = useCallback(({ item }: { item: any }) => {
-    return shoppingList ? (
-      <ItemDetailsContainer space>
-        <SelectedItem
-          selectedItemText={`${findItemById(item.id)} ${item.item} `}
-          onPress={() =>
-            context.setShoppingCart(
-              context.shoppingCart.filter(
-                (cartItem: DataProps) => cartItem.id != item.id
+  const renderItem = useCallback(
+    ({ item }: { item: any }) => {
+      return shoppingList ? (
+        <ItemDetailsContainer space>
+          <SelectedItem
+            selectedItemText={`${findItemById(item.id)} ${item.item} `}
+            onPress={() =>
+              context.setShoppingCart(
+                context.shoppingCart.filter(
+                  (cartItem: DataProps) => cartItem.id != item.id
+                )
               )
-            )
-          }
-        />
-      </ItemDetailsContainer>
-    ) : (
-      <SelectionContainer selected={findItemById(item.id) > 0}>
-        <ItemDetailsContainer
-          selected={findItemById(item.id) > 0}
-          onPress={() => onItemPress(item)}
-        >
-          <ItemImageContainer source={item.image} resizeMode="cover">
-            <ScreenHeader backgroundColor>{item.item}</ScreenHeader>
-          </ItemImageContainer>
+            }
+          />
         </ItemDetailsContainer>
-        <Pressable onPress={() => onRemovePress(item)}>
-          <Ionicons name="bag-remove-sharp" size={24} color="red" />
-        </Pressable>
-        <ScreenHeader>{findItemById(item.id)}</ScreenHeader>
-        {findItemById(item.id) > 0 && (
-          <Pressable onPress={() => onItemPress(item)}>
-            <FontAwesome6 name="add" size={24} color="blue" />
+      ) : (
+        <SelectionContainer selected={findItemById(item.id) > 0}>
+          <ItemDetailsContainer
+            selected={findItemById(item.id) > 0}
+            onPress={() => context.onItemPress(item)}
+          >
+            <ItemImageContainer source={item.image} resizeMode="cover">
+              <ScreenHeader backgroundColor>{item.item}</ScreenHeader>
+            </ItemImageContainer>
+          </ItemDetailsContainer>
+          <Pressable onPress={() => context.onRemovePress(item)}>
+            <Ionicons name="bag-remove-sharp" size={24} color="red" />
           </Pressable>
-        )}
-      </SelectionContainer>
-    );
-  }, []);
+          <ScreenHeader>{findItemById(item.id)}</ScreenHeader>
+          {findItemById(item.id) > 0 && (
+            <Pressable onPress={() => context.onItemPress(item)}>
+              <FontAwesome6 name="add" size={24} color="blue" />
+            </Pressable>
+          )}
+        </SelectionContainer>
+      );
+    },
+    [context.shoppingCart]
+  );
 
   return (
     <ItemsContainer
       data={data}
-      keyExtractor={(item: any) => item.id}
+      keyExtractor={(item: any) => item.id} //#TODO: remove any
       renderItem={renderItem}
     />
   );
