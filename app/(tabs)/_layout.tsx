@@ -12,20 +12,29 @@ export default function TabsLayout() {
         }}
       >
         <Tabs.Screen
-          name="Home"
+          name='Home'
           options={{
             tabBarLabel: "Home",
             tabBarIcon: ({ color }) => (
-              <FontAwesome name="home" size={24} color={color} />
+              <FontAwesome name='home' size={24} color={color} />
             ),
           }}
         />
         <Tabs.Screen
-          name="ShoppingItems"
+          name='ShoppingItems'
           options={{
             tabBarLabel: "Shopping Items",
             tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="store" size={24} color={color} />
+              <FontAwesome5 name='store' size={24} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name='News'
+          options={{
+            tabBarLabel: "News",
+            tabBarIcon: ({ color }) => (
+              <FontAwesome name='newspaper-o' size={24} color={color} />
             ),
           }}
         />

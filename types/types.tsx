@@ -18,6 +18,12 @@ export interface ContainerProps {
   topCenter?: boolean;
 }
 
+export interface ScreenCardProps {
+  cardImageSrc?: any; //#TODO:REMOVE ANY
+  description?: string;
+  urlToArticle?: any; //#TODO:REMOVE ANY
+}
+
 export interface ScreenHeaderProps {
   children: React.ReactNode;
   padding?: boolean;
@@ -34,6 +40,7 @@ export interface ScreenHeaderContainerProps {
 
 export interface SectionContainerProps {
   children: React.ReactNode;
+  center?: boolean;
 }
 
 export interface ShoppingCartProps {
@@ -79,4 +86,19 @@ export interface ScreenHeaderTextProps {
 export interface SelectedItemProps {
   selectedItemText?: string;
   onPress?: () => void;
+}
+
+export interface ArticlesSourceProps {
+  id: string | null;
+  name: string;
+}
+export interface NewsDataProps {
+  source: ArticlesSourceProps;
+  author: string | null;
+  title: string;
+  description: string;
+  url: string;
+  urlToImage: ImageSourcePropType | undefined;
+  publishedAt: string;
+  content: string;
 }
